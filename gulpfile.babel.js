@@ -1,16 +1,21 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-console */
+
 import gulp from 'gulp';
 import babel from 'gulp-babel';
+import eslint from 'gulp-eslint';
 import { exec } from 'child_process';
 
 const paths = {
   allSrcJs: 'src/**/*.js',
-}
+  gulpFile: 'gulpfile.babel.js',
+};
 
-gulp.task('build', () => {
-  return gulp.src(paths.allSrcJs)
+gulp.task('build', ['lint'], () =>
+  gulp.src(paths.allSrcJs)
     .pipe(babel())
-    .pipe(gulp.dest('lib'));
-});
+    .pipe(gulp.dest('lib'))
+);
 
 gulp.task('main', ['build'], (callback) => {
   exec('node lib/', (error, stdout) => {
@@ -22,5 +27,15 @@ gulp.task('main', ['build'], (callback) => {
 gulp.task('watch', () => {
   gulp.watch(paths.allSrcJs, ['main']);
 });
+
+gulp.task('lint', () =>
+  gulp.src([
+    paths.allSrcJs,
+    paths.gulpFile,
+  ])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
+);
 
 gulp.task('default', ['watch', 'main']);
