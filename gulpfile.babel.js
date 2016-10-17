@@ -1,6 +1,6 @@
-const gulp = require('gulp');
-const babel = require('gulp-babel');
-const exec = require('child_process').exec;
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import { exec } from 'child_process';
 
 const paths = {
   allSrcJs: 'src/**/*.js',
