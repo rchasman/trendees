@@ -21,7 +21,7 @@ function Trends() {
 Trends.render = function render(trends) {
   console.log(trends);
   return h('div.trends',
-            h('ul', trends.map(trend => trend)));
+            h('ul', trends.map(trend => `${trend}, `)));
 };
 
 function App() {
@@ -32,10 +32,14 @@ function App() {
 }
 
 App.render = function render(state) {
-  hg.send(state.channels.getTrends);
   return h('div.app', [
     h('h1', 'Trendees'),
     h('h2', 'Limited Time Trending Tees'),
+	  h('input.button', {
+      type: 'button',
+      value: 'Click me!',
+      'ev-click': hg.send(state.channels.getTrends)
+    }),
     Trends.render(state.trends),
   ]);
 };

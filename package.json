@@ -4,7 +4,7 @@
   "description": "buy a t-shirt with a trending topic on it, new shirts created daily",
   "main": "index.js",
   "scripts": {
-    "start": "gulp",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "babel": {
