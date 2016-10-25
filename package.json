@@ -24,7 +24,11 @@
   "author": "Roey D. Chasman",
   "license": "MIT",
   "dependencies": {
-    "mercury": "^14.1.0"
+    "exports-loader": "^0.6.3",
+    "imports-loader": "^0.6.5",
+    "mercury": "^14.1.0",
+    "webpack": "^1.13.2",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "babel-loader": "^6.2.5",

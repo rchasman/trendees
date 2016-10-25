@@ -1,4 +1,5 @@
 import path from 'path';
+import webpack from 'webpack';
 
 export default {
   entry: './src/client/app.js',
@@ -15,6 +16,11 @@ export default {
       },
     ],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+    }),
+  ],
   devServer: {
     contentBase: './dist/',
   },
