@@ -3,23 +3,40 @@
 
 import hg, { h } from 'mercury';
 
+function getTrends(state) {
+  fetch('http://crossorigin.me/http://hawttrends.appspot.com/api/terms/')
+    .then(resp => resp.json())
+    .then((json) => {
+      state.trends.set(json[1]);
+    })
+    .catch((err) => {
+      console.log('parsing failed', err);
+    });
+}
+
+function Trends() {
+  return hg.state({});
+}
+
+Trends.render = function render(trends) {
+  console.log(trends);
+  return h('div.trends',
+            h('ul', trends.map(trend => trend)));
+};
+
 function App() {
   return hg.state({
-    value: hg.value(0),
-    channels: {
-      clicks: incrementCounter,
-    },
+    trends: hg.value([]),
+    channels: { getTrends },
   });
 }
 
-function incrementCounter(state) {
-  state.value.set(state.value() + 1);
-}
-
 App.render = function render(state) {
+  hg.send(state.channels.getTrends);
   return h('div.app', [
     h('h1', 'Trendees'),
     h('h2', 'Limited Time Trending Tees'),
+    Trends.render(state.trends),
   ]);
 };
 
