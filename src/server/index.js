@@ -1,7 +1,14 @@
 /* eslint-disable no-console */
 
-import Dog from '../shared/dog';
+export default getTrends
 
-const toby = new Dog('Toby');
-
-console.log(toby.bark());
+function getTrends(trends) {
+  fetch('http://crossorigin.me/http://hawttrends.appspot.com/api/terms/')
+    .then(resp => resp.json())
+    .then((json) => {
+      trends.set(json[1].slice(1, 5));
+    })
+    .catch((err) => {
+      console.log('parsing failed', err);
+    });
+}
