@@ -2,7 +2,7 @@
 /* eslint-disable no-use-before-define */
 
 import hg, { h } from 'mercury';
-import getTrends from '../server/index';
+import trendsAPI from '../server/index';
 
 function Trends() {
   return hg.state({});
@@ -10,14 +10,21 @@ function Trends() {
 
 Trends.render = function render(trends) {
   return h('div.trends',
-            h('ul', trends.map(trend => `${trend}, `)));
+            h('ul', [
+              trends.map(
+                trend => [
+                  h('li', trend.name),
+                  h('img', {height: '300', src: trend.imageSrc}),
+                ]),
+            ]));
 };
 
 function App() {
   var state = hg.state({
     trends: hg.array([]),
   });
-  setTimeout(() => getTrends(state.trends));
+  setTimeout(() => trendsAPI.getTrends(state.trends));
+  console.log('too late');
   return state;
 }
 
