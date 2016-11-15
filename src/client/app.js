@@ -24,7 +24,6 @@ function App() {
     trends: hg.array([]),
   });
   setTimeout(() => trendsAPI.getTrends(state.trends));
-  console.log('too late');
   return state;
 }
 
