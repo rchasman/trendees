@@ -1,11 +1,6 @@
 /* eslint-disable no-console */
 
-const trendsAPI = {
-  getTrends: getTrends,
-  getTrendImage: getTrendImage
-};
-
-export default trendsAPI;
+import config from './config';
 
 function getTrends(trends) {
   fetch('http://crossorigin.me/http://hawttrends.appspot.com/api/terms/')
@@ -21,7 +16,7 @@ function getTrends(trends) {
 
 function getTrendImage(trends, trendsData, trend) {
   fetch(`https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=${trend}&count=3&offset=0&mkt=en-us`,
-    {headers: {'Ocp-Apim-Subscription-Key': proccess.env.BING_SEARCH_API_KEY}})
+    {headers: {'Ocp-Apim-Subscription-Key': config.bingImageSearch.key}})
   .then(resp => resp.json())
   .then((json) => {
     let randImgPicker = Math.floor(Math.random() * 3);
@@ -33,3 +28,11 @@ function getTrendImage(trends, trendsData, trend) {
     console.log('Fetching Trend Image Failed', err)
   });
 }
+
+const trendsAPI = {
+  getTrends,
+  getTrendImage
+};
+
+export default trendsAPI;
+
