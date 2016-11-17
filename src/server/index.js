@@ -7,7 +7,7 @@ function getTrends(trends) {
     .then(resp => resp.json())
     .then((json) => {
       let trendsData = [];
-      json[1].slice(1, 5).map(name => getTrendImage(trends, trendsData, name));
+      json[1].slice(0, 5).map(name => getTrendImage(trends, trendsData, name));
     })
     .catch((err) => {
       console.log('Fetching 5 Trends Failed', err);
@@ -20,8 +20,8 @@ function getTrendImage(trends, trendsData, trend) {
   .then(resp => resp.json())
   .then((json) => {
     let randImgPicker = Math.floor(Math.random() * 3);
-    let src = json.value[randImgPicker].contentUrl;
-    trendsData.push({name: trend, imageSrc: src});
+    let imageSrc = json.value[randImgPicker].contentUrl;
+    trendsData.push({ name: trend, imageSrc });
     trends.set(trendsData);
   })
   .catch((err) => {
