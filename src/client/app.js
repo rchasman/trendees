@@ -10,13 +10,13 @@ function Trends() {
 
 Trends.render = function render(trends) {
   return h('div.trends',
-            h('ul', [
-              trends.map(
-                trend => [
-                  h('li', trend.name),
-                  h('img', {height: '300', src: trend.imageSrc}),
-                ]),
-            ]));
+    h('ul', [
+      trends.map(
+        trend => [
+          h('li', trend.name),
+          h('img', {height: '300', src: trend.imageSrc}),
+        ]),
+    ]));
 };
 
 function App() {
